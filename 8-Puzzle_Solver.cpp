@@ -165,7 +165,7 @@ public:
 			for (int col = 0; col < gridSize; col++)
 			{
 				(grid[row][col].value == 0 && !showBlankAsZero) ?
-					cout << "_":
+					cout << "_" :
 					cout << grid[row][col].value;
 			}
 			cout << endl;
@@ -309,7 +309,7 @@ void printOutput()
 		it->printGrid(false);
 		printf("\n¡õ\n\n");
 	}
-	cout << "Finish!";
+	printf("Finish!\n");
 }
 
 // A* search
@@ -401,9 +401,19 @@ void search()
 
 int main(int argc, char** argv)
 {
-	getValues();
-	search();
-	printOutput();
+	int retry;
+
+	do
+	{
+		system("CLS");
+		getValues();
+		search();
+		printOutput();
+
+		printf("\n*****\n");
+		printf("Retry? (1 to continue, -1 to quit): ");
+		cin >> retry;
+	} while (retry != -1);
 
 	return 0;
 }
