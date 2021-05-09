@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <windows.h>
 
 using namespace std;
 
@@ -14,7 +15,6 @@ const int goalState[gridSize][gridSize] =
 	6,7,8
 };
 
-string output;
 
 struct Point
 {
@@ -158,6 +158,20 @@ public:
 		return hScore == 0;
 	}
 
+	void printGrid(bool showBlankAsZero = true)
+	{
+		for (int row = 0; row < gridSize; row++)
+		{
+			for (int col = 0; col < gridSize; col++)
+			{
+				(grid[row][col].value == 0 && !showBlankAsZero) ?
+					cout << "_":
+					cout << grid[row][col].value;
+			}
+			cout << endl;
+		}
+	}
+
 	void debug(bool showExtra)
 	{
 		for (int row = 0; row < gridSize; row++)
@@ -233,11 +247,13 @@ private:
 	}
 };
 
+std::vector<State> output;
+
 void getValues()
 {
 	// Get input
 	int input;
-	cout << "input puzzle = ";
+	cout << "Enter input puzzle: ";
 	cin >> input;
 
 
@@ -261,19 +277,39 @@ void getValues()
 	}
 }
 
-void storeMove(Point pos)
-{
-	char move = pos.pointToIndex() + 'A';
-	output += move;
-}
 
 void reconstructPath(State* current)
 {
+	// Recursive function which will trace back to start state
 	if (current->parent)
 	{
-		storeMove(current->blankPos);
+		output.push_back(*current);
 		reconstructPath(current->parent);
 	}
+}
+
+void printOutput()
+{
+	// Revearse the output path
+	int step = 0;
+	for (auto it = output.rbegin(); it != output.rend(); it++)
+	{
+		system("CLS");
+		printf("Step %i:\n\n", step);
+		it->printGrid(false);
+
+		Sleep(1000);
+		step++;
+	}
+
+	system("CLS");
+	printf("Full Output:\n\n");
+	for (auto it = output.rbegin(); it != output.rend(); it++)
+	{
+		it->printGrid(false);
+		printf("\n¡õ\n\n");
+	}
+	cout << "Finish!";
 }
 
 // A* search
@@ -360,13 +396,7 @@ void search()
 	}
 
 	reconstructPath(&closeSet.back());
-}
-
-void printOutput()
-{
-	// Revearse the output path
-	for (int i = output.length() - 1; i >= 0; i--)
-		cout << output[i];
+	output.push_back(startState); // Add the start state to output so it will show when printing
 }
 
 int main(int argc, char** argv)
