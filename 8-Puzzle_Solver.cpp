@@ -290,11 +290,16 @@ void reconstructPath(State* current)
 
 void printOutput()
 {
+	// Get the console window's handle and set the cursor position
+	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD destCoord = { 0,0 };
+	system("CLS");
+
 	// Revearse the output path
 	int step = 0;
 	for (auto it = output.rbegin(); it != output.rend(); it++)
 	{
-		system("CLS");
+		SetConsoleCursorPosition(hStdout, destCoord);	
 		printf("Step %i:\n\n", step);
 		it->printGrid(false);
 
