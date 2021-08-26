@@ -1,7 +1,11 @@
 # 8-Puzzle_Solver
 My implementation of a 8-Puzzle Solver using A* search algorithm.
 
-[![Dark Zone](https://img.youtube.com/vi/MXoERlO0tsA/0.jpg)](https://youtu.be/MXoERlO0tsA)
+
+
+https://user-images.githubusercontent.com/38518793/130997218-64765d38-dc9e-430b-a919-f41bd25b8e27.mp4
+
+
 
 ## How it works
 
