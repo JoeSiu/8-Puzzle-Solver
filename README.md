@@ -1,11 +1,7 @@
 # 8-Puzzle_Solver
 My implementation of a 8-Puzzle Solver using A* search algorithm.
 
-
-
-https://user-images.githubusercontent.com/38518793/130997218-64765d38-dc9e-430b-a919-f41bd25b8e27.mp4
-
-
+https://user-images.githubusercontent.com/38518793/130997390-132900e9-0808-4545-85cc-dea042ceabee.mp4
 
 ## How it works
 
