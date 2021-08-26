@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="8-Puzzle_Solver.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="8-Puzzle_Solver.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

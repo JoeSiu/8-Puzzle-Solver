@@ -3,17 +3,12 @@
 #include <vector>
 #include <list>
 #include <windows.h>
+#include "8-Puzzle_Solver.h"
 
 using namespace std;
 
-const int gridSize = 3;
-const int puzzleSize = gridSize * gridSize;
-const int goalState[gridSize][gridSize] =
-{
-	0,1,2,
-	3,4,5,
-	6,7,8
-};
+string goalValue;
+int goalState[gridSize][gridSize];
 
 
 struct Point
@@ -160,16 +155,26 @@ public:
 
 	void printGrid(bool showBlankAsZero = true)
 	{
+		cout << "+-----+" << endl;
 		for (int row = 0; row < gridSize; row++)
 		{
 			for (int col = 0; col < gridSize; col++)
 			{
+				if (col == 0)
+					cout << "|";
+
 				(grid[row][col].value == 0 && !showBlankAsZero) ?
-					cout << "_" :
+					cout << " " :
 					cout << grid[row][col].value;
+
+				if (col == gridSize - 1)
+					cout << "|";
+				else
+					cout << " ";
 			}
 			cout << endl;
 		}
+		cout << "+-----+" << endl;
 	}
 
 	void debug(bool showExtra)
@@ -251,32 +256,29 @@ std::vector<State> output;
 
 void getValues()
 {
-	// Get input
-	int input;
+	// Get inputs
+	string puzzleInput;
 	cout << "Enter input puzzle: ";
-	cin >> input;
+	getline(cin, puzzleInput);
 
+	cout << "Enter goal state (leave empty for default '012345678'): ";
+	getline(cin, goalValue);
 
-	int inputArray[puzzleSize];
+	if (goalValue.empty())
+		goalValue = "012345678";
 
-	// Get each digit from the input and store into array
-	for (int i = 8; i >= 0; i--)
-	{
-		inputArray[i] = input % 10;
-		input /= 10;
-	}
-
-	// Set the puzzle grid
+	// Set the puzzle grid and goal grid
 	for (int row = 0; row < gridSize; row++)
 	{
 		for (int col = 0; col < gridSize; col++)
 		{
-			puzzle[row][col].value = inputArray[row * gridSize + col];
+			goalState[row][col] = goalValue[row * gridSize + col] - '0'; // Convert char to int
+
+			puzzle[row][col].value = puzzleInput[row * gridSize + col] - '0'; // Convert char to int
 			puzzle[row][col].goalValue = goalState[row][col];
 		}
 	}
 }
-
 
 void reconstructPath(State* current)
 {
@@ -303,7 +305,7 @@ void printOutput()
 		printf("Step %i:\n\n", step);
 		it->printGrid(false);
 
-		Sleep(1000);
+		Sleep(config::consoleOutputSpeed);
 		step++;
 	}
 
@@ -418,6 +420,7 @@ int main(int argc, char** argv)
 		printf("\n*****\n");
 		printf("Retry? (1 to continue, -1 to quit): ");
 		cin >> retry;
+		cin.ignore(); // As the new line will count as input
 	} while (retry != -1);
 
 	return 0;
