@@ -1,8 +1,6 @@
 # 8-Puzzle_Solver
 My implementation of a 8-Puzzle Solver using A* search algorithm.
 
-https://user-images.githubusercontent.com/38518793/130997390-132900e9-0808-4545-85cc-dea042ceabee.mp4
-
 ## How it works
 
 The program uses A* algorithm to solve the puzzle. The g score each state is calculated by parent state’s total number of move + 1, while the heuristic value is the total Manhattan distance of all tiles from their current position to goal position, and f score is the sum of g score and h score.
