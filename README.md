@@ -1,4 +1,4 @@
-# 8-Puzzle_Solver
+# 8-Puzzle Solver
 My implementation of a 8-Puzzle Solver using A* search algorithm.
 
 ## How it works
